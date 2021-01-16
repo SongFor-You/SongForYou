@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# 시현 화면 테스트 폴더
+html
+
+# 시현 몽고디비 보안파일
+application-security.yml
