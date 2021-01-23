@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,8 +19,9 @@ public class ApiController {
     private final MongoInputService mongoInputService;
 
     @GetMapping("/api/songs")
-    public List<Song> getSongs() {
-        return mongoInputService.getSongs();
+    public List<Song> getSongs(@RequestParam("page") int page, @RequestParam("size") int size) {
+
+        return mongoInputService.getSongs(page, size);
     }
 
     @GetMapping("/api/song/{id}")
