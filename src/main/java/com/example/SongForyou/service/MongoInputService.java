@@ -6,6 +6,9 @@ import com.example.SongForyou.dto.PlaylistRootDto;
 import com.example.SongForyou.repository.PlaylistRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -49,9 +52,10 @@ public class MongoInputService {
         return response.getBody();
     }
 
-    public List<Playlist> getPlaylists() {
-
-        return playlistRepository.findAll();
+    public List<Playlist> getPlaylists(String page) {
+        // TODO size 설정파일로 배기
+        PageRequest pageRequest = PageRequest.of(Integer.parseInt(page), 10, Sort.Direction.ASC, "collectionId");
+        return playlistRepository.findAll(pageRequest).getContent();
     }
 
     public PlaylistRestDto getPlaylistItem(int id) {

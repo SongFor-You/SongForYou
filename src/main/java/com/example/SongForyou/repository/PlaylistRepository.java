@@ -1,6 +1,8 @@
 package com.example.SongForyou.repository;
 
 import com.example.SongForyou.domain.Playlist;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +16,5 @@ public interface PlaylistRepository extends MongoRepository<Playlist,String> { /
     @Query(value="{ 'id' : ?0 }")
     Optional<Playlist> findByPlaylistId(int songId);
 
+//    Page<Playlist> findAll(PageRequest pageRequest);
 }

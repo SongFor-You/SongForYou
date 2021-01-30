@@ -29,13 +29,13 @@ public class Playlist {
     private int id;
 
     @Builder
-    public Playlist(PlaylistDto dto){
-        this.updt_date =dto.getUpdt_date();
+    public Playlist(PlaylistDto dto) {
+        this.updt_date = dto.getUpdt_date();
         this.tags = dto.getTags();
-        this.songs =dto.getSongs();
-        this.plylst_title =dto.getPlylst_title();
-        this.like_cnt =dto.getLike_cnt();
-        this.id=dto.getId();
+        this.songs = dto.getSongs();
+        this.plylst_title = dto.getPlylst_title();
+        this.like_cnt = dto.getLike_cnt();
+        this.id = dto.getId();
     }
 
 }

@@ -25,8 +25,8 @@ public class ApiController {
     }
 
     @GetMapping("/api/playlists")
-    public List<PlaylistRestDto> getPlaylists() {
-        return mongoInputService.getPlaylists().stream()
+    public List<PlaylistRestDto> getPlaylists(@RequestParam("page") String page) {
+        return mongoInputService.getPlaylists(page).stream()
                 .map(playlist -> PlaylistRestDto.builder()
                         .collectionId(playlist.getCollectionId())
                         .updt_date(playlist.getUpdt_date())
