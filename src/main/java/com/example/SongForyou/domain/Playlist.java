@@ -23,6 +23,8 @@ public class Playlist {
 
     private String updt_date;
     private List<String> tags;
+
+//    @OneToMany(mappedBy = "member")
     private List<Integer> songs;
     private String plylst_title;
     private int like_cnt;

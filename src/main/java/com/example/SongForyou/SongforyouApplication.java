@@ -9,11 +9,14 @@ import org.springframework.web.client.RestTemplate;
 public class SongforyouApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(SongforyouApplication.class, args);
+
 	}
 
 	@Bean
-	public RestTemplate restTemplate(){
+	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
+
 }
