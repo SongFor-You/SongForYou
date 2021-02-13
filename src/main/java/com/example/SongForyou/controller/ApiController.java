@@ -69,24 +69,24 @@ public class ApiController {
     }
 
     @GetMapping("/api/click/playlists/{id}")
-    public ClickResDto clickPlaylist(@PathVariable(name="id") int id, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ClickResDto clickPlaylist(@PathVariable(name="id") int id, @RequestParam("userId") String userId) {
         Click clickItem = mongoInputService.clickItem("PLAYLIST"/*type*/, id, userId);
         return new ClickResDto(clickItem);
-
     }
 
     @GetMapping("/api/click/songs/{id}")
-    public ClickResDto clickSong(@PathVariable(name="id") int id, HttpServletRequest request) {
-        String userId = getUserId(request);
+    public ClickResDto clickSong(@PathVariable(name="id") int id, @RequestParam("userId") String userId) {
+        // 카프카 로직
         Click clickItem =  mongoInputService.clickItem("SONG", id, userId);
         return new ClickResDto(clickItem);
     }
 
-    private String getUserId(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String userId = mongoInputService.createUser(session.getId());
-        return userId;
-    }
+//    private String getUserId(HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        // TODO id 있는지 확인하는 로직 추가해야함. 있으면 그대로 쓰고, 없으면 생성 , 그냥 click 에 함께 저장
+          // 데이터 적재하니까 괜찮을듯 안되면 그때 user 생성하는 로직 넣기
+//        String userId = mongoInputService.createUser(session.getId());
+//        return userId;
+//    }
 
 }
