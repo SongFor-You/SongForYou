@@ -1,9 +1,13 @@
 package com.example.SongForyou.controller;
 
+import com.example.SongForyou.domain.Click;
 import com.example.SongForyou.domain.Song;
+import com.example.SongForyou.domain.User;
+import com.example.SongForyou.dto.ClickResDto;
 import com.example.SongForyou.dto.PalylistAndSongsDto;
 import com.example.SongForyou.dto.PlaylistRestDto;
 import com.example.SongForyou.dto.PlaylistRootDto;
+import com.example.SongForyou.repository.UserRepository;
 import com.example.SongForyou.service.MongoInputService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,4 +67,26 @@ public class ApiController {
         // 제대로 돌아가는지 확인차...
         return "Hi";
     }
+
+    @GetMapping("/api/click/playlists/{id}")
+    public ClickResDto clickPlaylist(@PathVariable(name="id") int id, HttpServletRequest request) {
+        String userId = getUserId(request);
+        Click clickItem = mongoInputService.clickItem("PLAYLIST"/*type*/, id, userId);
+        return new ClickResDto(clickItem);
+
+    }
+
+    @GetMapping("/api/click/songs/{id}")
+    public ClickResDto clickSong(@PathVariable(name="id") int id, HttpServletRequest request) {
+        String userId = getUserId(request);
+        Click clickItem =  mongoInputService.clickItem("SONG", id, userId);
+        return new ClickResDto(clickItem);
+    }
+
+    private String getUserId(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String userId = mongoInputService.createUser(session.getId());
+        return userId;
+    }
+
 }

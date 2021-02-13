@@ -17,7 +17,7 @@ import java.util.List;
 public class Playlist {
 
     @Id
-    private String collectionId;
+    private String collectionId; // compass 에 없다
 
     // updt_date tags songs plylst_title like_cnt id
 

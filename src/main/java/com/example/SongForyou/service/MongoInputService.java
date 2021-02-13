@@ -1,12 +1,16 @@
 package com.example.SongForyou.service;
 
+import com.example.SongForyou.domain.Click;
 import com.example.SongForyou.domain.Playlist;
 import com.example.SongForyou.domain.Song;
+import com.example.SongForyou.domain.User;
 import com.example.SongForyou.dto.PalylistAndSongsDto;
 import com.example.SongForyou.dto.PlaylistRestDto;
 import com.example.SongForyou.dto.PlaylistRootDto;
+import com.example.SongForyou.repository.ClickRepository;
 import com.example.SongForyou.repository.PlaylistRepository;
 import com.example.SongForyou.repository.SongRepository;
+import com.example.SongForyou.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -14,8 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 
 @Slf4j
@@ -142,5 +142,29 @@ public class MongoInputService {
 
     public Optional<Song> getSongItem(int id) {
         return songRepository.findBySongId(id);
+    }
+
+    private final ClickRepository clickRepository;
+
+    @Transactional
+    public Click clickItem(String type, int id, String userId) {
+        Click build = Click.builder()
+                .type(type)
+                .itemId(id)
+                .userId(userId)
+                .build();
+
+        Click save = clickRepository.save(build);
+        log.info("[Click save] " + save.toString());
+
+        return save;
+    }
+
+    private final UserRepository userRepository;
+    public String createUser(String id) {
+        User user = User.builder()
+                .id(id)
+                .build();
+        return userRepository.save(user).getId();
     }
 }
