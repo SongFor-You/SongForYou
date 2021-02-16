@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
+    @GetMapping("/playlists")
+    public String playlists(Model model){
+        return "playlist";
+    }
+
     @GetMapping("/songs")
     public String index(Model model) {
         return "song";

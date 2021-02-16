@@ -36,5 +36,17 @@ out/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 application.properties
 application-security.yml
+=======
+<<<<<<< HEAD
+# 시현 화면 테스트 폴더
+html
+
+# 시현 몽고디비 보안파일
+application-security.yml
+=======
+application.properties
+>>>>>>> cd1987d6c7ff439bf2f1052386ef095ba69beae1
+>>>>>>> 1e6f5449e18c0c4e4f4dcbf8dab8a15d9952b6a8
