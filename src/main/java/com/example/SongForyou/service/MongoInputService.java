@@ -1,16 +1,10 @@
 package com.example.SongForyou.service;
 
-import com.example.SongForyou.domain.Click;
-import com.example.SongForyou.domain.Playlist;
-import com.example.SongForyou.domain.Song;
-import com.example.SongForyou.domain.User;
+import com.example.SongForyou.domain.*;
 import com.example.SongForyou.dto.PalylistAndSongsDto;
 import com.example.SongForyou.dto.PlaylistRestDto;
 import com.example.SongForyou.dto.PlaylistRootDto;
-import com.example.SongForyou.repository.ClickRepository;
-import com.example.SongForyou.repository.PlaylistRepository;
-import com.example.SongForyou.repository.SongRepository;
-import com.example.SongForyou.repository.UserRepository;
+import com.example.SongForyou.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -145,6 +139,7 @@ public class MongoInputService {
     }
 
     private final ClickRepository clickRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional
     public Click clickItem(String type, int id, String userId) {
@@ -158,6 +153,21 @@ public class MongoInputService {
         log.info("[Click save] " + save.toString());
 
         return save;
+    }
+
+    @Transactional
+    public Like likeItem(String type, int id, String userId) {
+        Like build=Like.builder()
+                .type(type)
+                .itemId(id)
+                .userId(userId)
+                .build();
+
+        Like save=likeRepository.save(build);
+        log.info("[Like save" + save.toString());
+
+        return save;
+
     }
 
     private final UserRepository userRepository;

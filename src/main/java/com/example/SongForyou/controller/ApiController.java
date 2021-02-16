@@ -1,12 +1,10 @@
 package com.example.SongForyou.controller;
 
 import com.example.SongForyou.domain.Click;
+import com.example.SongForyou.domain.Like;
 import com.example.SongForyou.domain.Song;
 import com.example.SongForyou.domain.User;
-import com.example.SongForyou.dto.ClickResDto;
-import com.example.SongForyou.dto.PalylistAndSongsDto;
-import com.example.SongForyou.dto.PlaylistRestDto;
-import com.example.SongForyou.dto.PlaylistRootDto;
+import com.example.SongForyou.dto.*;
 import com.example.SongForyou.repository.UserRepository;
 import com.example.SongForyou.service.MongoInputService;
 import lombok.RequiredArgsConstructor;
@@ -79,6 +77,18 @@ public class ApiController {
         // 카프카 로직
         Click clickItem =  mongoInputService.clickItem("SONG", id, userId);
         return new ClickResDto(clickItem);
+    }
+
+    @GetMapping("/api/like/playlists/{id}") // id는 songid 혹은 playlistid
+    public LikeResDto likePlayList(@PathVariable(name="id") int id, @RequestParam("userId") String userId) {
+        Like likeItem=mongoInputService.likeItem("PLAYLIST", id, userId);
+        return new LikeResDto(likeItem);
+    }
+
+    @GetMapping("/api/like/songs/{id}") // id는 songid 혹은 playlistid
+    public LikeResDto likeSong(@PathVariable(name="id") int id, @RequestParam("userId") String userId) {
+        Like likeItem=mongoInputService.likeItem("SONG", id, userId);
+        return new LikeResDto(likeItem);
     }
 
 //    private String getUserId(HttpServletRequest request) {

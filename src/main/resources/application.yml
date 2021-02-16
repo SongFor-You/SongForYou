@@ -1,6 +1,3 @@
 spring:
-<<<<<<< HEAD
   profiles.include: security
-=======
-  profiles.include: security
->>>>>>> 1e6f5449e18c0c4e4f4dcbf8dab8a15d9952b6a8
+
